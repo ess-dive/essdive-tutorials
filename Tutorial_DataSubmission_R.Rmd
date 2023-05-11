@@ -1,0 +1,129 @@
+---
+title: "API_CreateSubmit_Tutorial"
+output: pdf_document
+date: "2023-04-17"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Tutorial: Data Submission to ESS-DIVE SANDBOX Using API
+
+The ESS-DIVE Dataset API is a service that enables projects to programmatically submit and manage datasets with ESS-DIVE. This is an alternative to using the ESS-DIVE Online form for data uploads. This service encodes metadata using the JSON-LD specification. JSON-LD is a schema to encode linked Data using JSON, and in the future will be used by Google to index metadata for searches. The use of the standardized JSON-LD schema will dramatically increase the visibility of datasets, and also enable projects to create one-time code that can be reused for periodic uploads of datasets to ESS-DIVE. 
+
+⭐ Contact ess-dive-support@lbl.gov to **submit more than 10GB per upload attempt**. Additional permissions are required.
+
+⭐ Current Maximum Upload Limit: **500 GB per upload attempt** 
+
+Please contact ess-dive-support@lbl.gov to submit more than 500GB of data at once.
+
+Use Sandbox https://api-sandbox.ess-dive.lbl.gov when testing code to submit datasets to ESS-DIVE. All code examples use sandbox. Once you have tested your code and you're ready to create new datasets for publication, use our production domain https://api.ess-dive.lbl.gov/.
+For additional information about the API, review the documentation at https://api-sandbox.ess-dive.lbl.gov.
+
+Email ESS-DIVE at ess-dive-support@lbl.gov if you require assistance
+
+Before creating datasets, you must be registered as an ESS-DIVE data contributor. To become a data contributor, set up your account by logging in with your ORCID, then fill out the New Data Contributor form. 
+
+After approval, you will be able to find your authentication token in your ESS-DIVE profile. This token is required to submit datasets through the API.
+
+
+## Setup
+### Get Authentication Token
+1. Go to https://data-sandbox.ess-dive.lbl.gov
+2. Sign in with Orcid
+3. Click your Name in the right hand corner and select My Profile
+4. Now Click the Settings > Authentication Token
+5. Scroll down and click Copy on the “Token” tab to get your authentication token
+⭐️ If you are not already registered to submit data with ESS-DIVE, follow the steps on the Register to Submit Data page: https://docs.ess-dive.lbl.gov/contributing-data/new-contributor-registration
+
+
+### Install Packages
+
+```{r package installs}
+install.packages("httr")
+install.packages("jsonlite")
+install.packages("readr")
+install.packages("rjson")
+
+#Require the package so you can use it
+require("jsonlite")
+require("httr")
+library(readr)
+library(rjson)
+```
+
+### Dataset API Information and Token
+
+You will need to copy your authentication token from your profile on ESS-DIVE. Tokens expire *every 24 hours.*
+
+```{r setup}
+token <- "<ENTER TOKEN HERE>"
+
+# DO NOT EDIT
+header_authorization <- paste("bearer",token, sep=" ")
+endpoint <- "packages"
+```
+
+## Submit a Dataset
+### Create Metadata
+
+Due to R complex JSON-LD support limitations, you need to create a text file of your JSON-LD and add it’s directory in the following read_file function. Here’s an example for a JSON-LD located on our ESS-DIVE package service examples github repository (https://github.com/ess-dive/essdive-package-service-examples). 
+
+While creating your metadata, refer to the Dataset Requirements page for instructions on completing each metadata field: https://docs.ess-dive.lbl.gov/contributing-data/package-level-metadata
+
+⭐️To make sure your file is properly saved in the JSON-LD format, consider using the Atom text editor (https://atom.io)
+
+Once you have completed your metadata file, enter the path to replace the below example.
+```{r}
+json_file <- read_file("example-1.jsonld")
+```
+
+
+## Submit Your Dataset
+### Submitting Only Metadata
+
+```{r}
+# DO NOT EDIT
+call_post_package <- paste(base,endpoint, sep="/")
+post_package = POST(call_post_package,
+                    body = json_file,
+                       add_headers(Authorization=header_authorization,
+                       "Content-Type"="application/json"))
+```
+
+Review results. results allows you to view your dataset ID, URL, the full dataset metadata (results\$dataset), warnings or errors, and details about dataset submission. If your dataset has been submitted correctly, results\$detail should return "Dataset created successfully."
+```{r}
+results = content(post_package)
+attributes(results)
+
+results$detail
+results$viewUrl
+results$errors
+```
+
+### Submit Metadata and Data
+To submit the metadata and a data file, create a folder and add your data file to it then execute the following code:
+```{r}
+call_post_package <- paste(base,endpoint, sep="/")
+
+post_package = POST(call_post_package, body=list("json-ld"=json_file, 
+        # edit "example_datafile" to enter the path to your data file
+        data=upload_file("example_datafile.csv","text/csv")),
+        add_headers(Authorization=header_authorization, 
+                    "Content-Type"="multipart/form-data"))
+```
+
+Review results. results allows you to view your dataset ID, URL, the full dataset metadata (results\$dataset), warnings or errors, and details about dataset submission. If your dataset has been submitted correctly, results\$detail should return "Dataset created successfully."
+```{r}
+results = content(post_package)
+attributes(results)
+
+results$detail
+results$viewUrl
+results$errors
+```
+
+
+
+
