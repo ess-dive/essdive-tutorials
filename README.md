@@ -1,8 +1,8 @@
 # ESS-DIVE API Tutorials
 
-Jupyter+R: [![Binder](https://mybinder.org/badge_logo.svg)](https://notebooks.gesis.org/binder/v2/gh/ess-dive/essdive-tutorials/main)
+Jupyter+R: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ess-dive/essdive-tutorials/HEAD)
 
-RStudio: [![Binder](https://mybinder.org/badge_logo.svg)](https://notebooks.gesis.org/binder/v2/gh/ess-dive/essdive-tutorials/main?urlpath=rstudio)
+RStudio: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ess-dive/essdive-tutorials/HEAD?urlpath=rstudio)
 
 ## Getting started with ESS-DIVE Package Service 1.2.0
 The ESS-DIVE Package Service is a service that enables projects to programmatically store data packages with ESS-DIVE. This is an alternative to using the ESS-DIVE web portal form for data uploads. This service encodes metadata using the JSON-LD specification. JSON-LD is a schema to encode linked Data using JSON, and in the future will be used by Google to index metadata for searches. The use of the standardized JSON-LD schema will dramatically increase the visibility of data packages, and also enable projects to create one-time code that can be reused for periodic uploads of data packages to ESS-DIVE.
