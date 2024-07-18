@@ -20,3 +20,10 @@ The ESS-DIVE Dataset API enables programmatic search of dataset metadata and acc
 This Jupyter Notebook tutorial illustrates a general dataset search and approaches for inspecting dataset contents with and without FLMD and Data Dictionary files (ESS-DIVE Community File-level Metadata Reporting Format). It also illustrates inspection of datasets employing the ESS-DIVE Community Sample ID and Metadata Reporting Format.
 
 Code to import csv files to Pandas dataframes and download data files to local storage are also included.
+
+## Share Data: Lookup and Change Dataset Permissions
+The ESS-DIVE Dataset API enables data contributors to programmatically review who currently has access to view, edit, or
+manage their dataset, as well as, add or remove individuals from their dataset permissions. 
+
+This Jupyter Notebook tutorial provides a basic example of how to execute the API's sharing operations for one dataset.
+The example code could readily be expanded to manage dataset permissions in bulk.
