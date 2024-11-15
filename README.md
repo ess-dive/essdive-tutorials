@@ -16,6 +16,10 @@ Provide feedback on the package service to ess-dive-support@lbl.gov.
 ### Tutorial Material
 There are two data submission tutorials available: Jupyter Notebook and RStudio. If you are not familiar with the API, we recommend starting with these tutorials, which walk through creating your JSON-LD metadata object and provide additional guidance for data submission. If you are familiar with the API and do not need step-by-step instructions, you can visit our [package service examples](https://github.com/ess-dive/essdive-package-service-examples/tree/4bcfe8fa2cd77c3f8bcf1895173a32a64f2196b5) for more streamlined notebooks and example code. 
 
+## Search Data: Using Data with the Dataset and Deep Dive API (Python)
+The ESS-DIVE Dataset API enables programmatic search of dataset metadata and access to their contents. The ESS-DIVE Deep Dive API enables direct search within data files across datasets that are following certain standards.
+This Jupyter Notebook tutorial illustrates a data discovery workflow and approaches to searching for and exploring inside datasets using both the Dataset API and Deep Dive API. The example provided plots two data files in different datasets that have matching search terms and download both the files and dataset citations.
+
 ## FindingAccessingData: Approaches to Inspecting Datasets via the ESS-DIVE Dataset API
 The ESS-DIVE Dataset API enables programmatic search of dataset metadata and access to their contents.
 
