@@ -1,0 +1,6 @@
+.DS_Store
+.env
+.venv/
+.idea/
+ESS-DIVE_Tutorial_Downloads/
+.ipynb_checkpoints
